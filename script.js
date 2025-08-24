@@ -51,8 +51,6 @@ function cargarFrase() {
 }
 
 
-
-// Selección e intercambio de palabras (funciona en PC y móvil)
 let seleccionada = null;
 
 puzzleDiv.addEventListener('click', function(e) {
@@ -76,7 +74,7 @@ puzzleDiv.addEventListener('click', function(e) {
   }
 });
 
-// Verificar orden y pasar a la siguiente ronda
+
 verificarBtn.addEventListener('click', () => {
   const ordenActual = Array.from(puzzleDiv.children).map(div => div.textContent);
   const imagenDiv = document.getElementById('imagen-ronda');
@@ -92,7 +90,7 @@ verificarBtn.addEventListener('click', () => {
       imagenDiv.innerHTML = '<img src="checo.jpg" alt="Imagen final" style="max-width:240px; border-radius:14px; box-shadow:0 2px 8px #0002; margin-top:10px;">';
     }
   } else {
-    resultado.textContent = "No aún… Intenta reorganizar las palabras.";
+    resultado.textContent = "Waittt… Intenta reorganizar las palabras.";
   }
 });
 
