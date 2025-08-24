@@ -59,7 +59,7 @@ function cargarFrase() {
   palabras.forEach(word => {
     const div = document.createElement('div');
     div.classList.add('palabra');
-    div.setAttribute('draggable', true);
+  //div.setAttribute('draggable', true); // Deshabilitado para modo swap por toques
     div.textContent = word;
     puzzleDiv.appendChild(div);
   });
@@ -73,28 +73,7 @@ function cargarFrase() {
 }
 
 
-// Drag & Drop para desktop
-let dragged = null;
-
-puzzleDiv.addEventListener('dragstart', (e) => {
-  dragged = e.target;
-  e.target.classList.add('dragging');
-});
-
-puzzleDiv.addEventListener('dragend', (e) => {
-  e.target.classList.remove('dragging');
-  dragged = null;
-});
-
-puzzleDiv.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  const target = e.target;
-  if(target.classList.contains('palabra') && target !== dragged){
-    const rect = target.getBoundingClientRect();
-    const next = (e.clientX - rect.left) / rect.width > 0.5;
-    puzzleDiv.insertBefore(dragged, next ? target.nextSibling : target);
-  }
-});
+// Drag & Drop deshabilitado para modo swap por toques
 
 // Soporte táctil para móviles
 let touchDragging = null;
