@@ -42,7 +42,8 @@ function cargarFrase() {
   }
 }
 
-// Drag & Drop
+
+// Drag & Drop para desktop
 let dragged = null;
 
 puzzleDiv.addEventListener('dragstart', (e) => {
@@ -62,6 +63,41 @@ puzzleDiv.addEventListener('dragover', (e) => {
     const rect = target.getBoundingClientRect();
     const next = (e.clientX - rect.left) / rect.width > 0.5;
     puzzleDiv.insertBefore(dragged, next ? target.nextSibling : target);
+  }
+});
+
+// Soporte táctil para móviles
+let touchDragging = null;
+let touchStartIndex = null;
+
+puzzleDiv.addEventListener('touchstart', function(e) {
+  const target = e.target.closest('.palabra');
+  if (!target) return;
+  touchDragging = target;
+  touchDragging.classList.add('dragging');
+  touchStartIndex = Array.from(puzzleDiv.children).indexOf(touchDragging);
+}, {passive: true});
+
+puzzleDiv.addEventListener('touchmove', function(e) {
+  if (!touchDragging) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+  const over = elem && elem.closest('.palabra');
+  if (over && over !== touchDragging) {
+    const overIndex = Array.from(puzzleDiv.children).indexOf(over);
+    if (overIndex > -1) {
+      puzzleDiv.insertBefore(touchDragging, overIndex > touchStartIndex ? over.nextSibling : over);
+      touchStartIndex = overIndex;
+    }
+  }
+}, {passive: false});
+
+puzzleDiv.addEventListener('touchend', function(e) {
+  if (touchDragging) {
+    touchDragging.classList.remove('dragging');
+    touchDragging = null;
+    touchStartIndex = null;
   }
 });
 
