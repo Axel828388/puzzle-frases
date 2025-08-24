@@ -41,17 +41,17 @@ h1 {
   border-radius: 8px;
   cursor: grab;
   user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   font-size: 1.1rem;
   font-family: 'Quicksand', Arial, sans-serif;
   transition: box-shadow 0.2s;
   box-shadow: 0 2px 8px #ffb3c633;
-  touch-action: manipulation;
 }
 
-.palabra.dragging {
-  opacity: 0.5;
+
+.palabra.seleccionada {
+  background: #ffe6f0;
+  border-color: #b30059;
+  box-shadow: 0 0 0 3px #ffb3c6aa;
 }
 
 button {

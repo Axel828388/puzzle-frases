@@ -1,33 +1,3 @@
-// --- Modo swap por toque (funciona en móvil y desktop) ---
-let selectedSwap = null;
-
-puzzleDiv.addEventListener('click', function(e) {
-  const target = e.target.closest('.palabra');
-  if (!target) return;
-  if (selectedSwap === target) {
-    target.classList.remove('dragging');
-    selectedSwap = null;
-    return;
-  }
-  if (!selectedSwap) {
-    selectedSwap = target;
-    target.classList.add('dragging');
-  } else {
-    // Intercambiar posiciones
-    const all = Array.from(puzzleDiv.children);
-    const idx1 = all.indexOf(selectedSwap);
-    const idx2 = all.indexOf(target);
-    if (idx1 > -1 && idx2 > -1 && idx1 !== idx2) {
-      if (idx1 < idx2) {
-        puzzleDiv.insertBefore(selectedSwap, target.nextSibling);
-      } else {
-        puzzleDiv.insertBefore(selectedSwap, target);
-      }
-    }
-    selectedSwap.classList.remove('dragging');
-    selectedSwap = null;
-  }
-});
 const puzzleDiv = document.getElementById('puzzle');
 const verificarBtn = document.getElementById('verificar');
 const resultado = document.getElementById('resultado');
@@ -59,7 +29,7 @@ function cargarFrase() {
   palabras.forEach(word => {
     const div = document.createElement('div');
     div.classList.add('palabra');
-  //div.setAttribute('draggable', true); // Deshabilitado para modo swap por toques
+    // No draggable para evitar drag and drop nativo
     div.textContent = word;
     puzzleDiv.appendChild(div);
   });
@@ -73,40 +43,28 @@ function cargarFrase() {
 }
 
 
-// Drag & Drop deshabilitado para modo swap por toques
 
-// Soporte táctil para móviles
-let touchDragging = null;
-let touchStartIndex = null;
+// Selección e intercambio de palabras (funciona en PC y móvil)
+let seleccionada = null;
 
-puzzleDiv.addEventListener('touchstart', function(e) {
+puzzleDiv.addEventListener('click', function(e) {
   const target = e.target.closest('.palabra');
   if (!target) return;
-  touchDragging = target;
-  touchDragging.classList.add('dragging');
-  touchStartIndex = Array.from(puzzleDiv.children).indexOf(touchDragging);
-}, {passive: true});
-
-puzzleDiv.addEventListener('touchmove', function(e) {
-  if (!touchDragging) return;
-  e.preventDefault();
-  const touch = e.touches[0];
-  const elem = document.elementFromPoint(touch.clientX, touch.clientY);
-  const over = elem && elem.closest('.palabra');
-  if (over && over !== touchDragging) {
-    const overIndex = Array.from(puzzleDiv.children).indexOf(over);
-    if (overIndex > -1) {
-      puzzleDiv.insertBefore(touchDragging, overIndex > touchStartIndex ? over.nextSibling : over);
-      touchStartIndex = overIndex;
-    }
+  if (seleccionada === target) {
+    target.classList.remove('seleccionada');
+    seleccionada = null;
+    return;
   }
-}, {passive: false});
-
-puzzleDiv.addEventListener('touchend', function(e) {
-  if (touchDragging) {
-    touchDragging.classList.remove('dragging');
-    touchDragging = null;
-    touchStartIndex = null;
+  if (seleccionada) {
+    // Intercambiar texto
+    const temp = seleccionada.textContent;
+    seleccionada.textContent = target.textContent;
+    target.textContent = temp;
+    seleccionada.classList.remove('seleccionada');
+    seleccionada = null;
+  } else {
+    target.classList.add('seleccionada');
+    seleccionada = target;
   }
 });
 
