@@ -9,6 +9,8 @@ const frases = [
   ["Contigo", "todo", "es", "mejor", "y", "más", "bonito"],
   ["Mi", "corazón", "late", "sólo", "por", "y", "para", "ti"],
   ["Te", "encuentro", "en", "cada", "canción", "de", "amor"],
+  ["Eres", "la", "razón", "de", "mi", "tonta", "sonrisa"],
+  ["Eres", "mi", "paraíso", "en", "la", "tierra"],
   ["Te", "amo", "Te", "amo", "Te", "amo", "Te", "amo"]
 ];
 let ronda = 0;
@@ -33,10 +35,12 @@ function cargarFrase() {
     div.textContent = word;
     puzzleDiv.appendChild(div);
   });
-  // Imagen especial para la ronda 3 (índice 2)
+  // Imagen especial para la ronda 3 (índice 2) y ronda 6 (índice 5)
   const imagenDiv = document.getElementById('imagen-ronda');
   if (ronda === 2) {
     imagenDiv.innerHTML = '<img src="3.jpg" alt="Imagen especial" style="max-width:220px; border-radius:12px; box-shadow:0 2px 8px #0002; margin-top:10px;">';
+  } else if (ronda === 5) {
+    imagenDiv.innerHTML = '<img src="mitad.jpg" alt="Imagen especial" style="max-width:220px; border-radius:12px; box-shadow:0 2px 8px #0002; margin-top:10px;">';
   } else {
     imagenDiv.innerHTML = '';
   }
