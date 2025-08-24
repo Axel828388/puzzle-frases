@@ -1,0 +1,62 @@
+
+body {
+  font-family: 'Quicksand', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #f1ffe6, #c5ff79);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff4d94;
+  font-family: 'Pacifico', cursive;
+  font-size: 2.2rem;
+  margin-bottom: 0.2em;
+}
+
+#ronda {
+  font-family: 'Quicksand', Arial, sans-serif;
+  font-size: 1.1rem;
+  color: #b30059;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.puzzle {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+
+.palabra {
+  padding: 10px 15px;
+  background: #fff;
+  border: 2px solid #ff4d94;
+  border-radius: 8px;
+  cursor: grab;
+  user-select: none;
+  font-size: 1.1rem;
+  font-family: 'Quicksand', Arial, sans-serif;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 8px #ffb3c633;
+}
+
+.palabra.dragging {
+  opacity: 0.5;
+}
+
+button {
+  padding: 10px 20px;
+  background: #ff4d94;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
